@@ -1,3 +1,5 @@
+
+  //PARTE RESPONSAVEL POR RECEBER OS DADOS QUE FPREM RECEBIDOS DA API E ARMAZENÁ-LOS EM VARIAVEIS
 class PlantModel {
   final bool isPlant;
   final double plantProbability;
@@ -42,6 +44,7 @@ class PlantModel {
   }
 }
 
+//PARTE RESPONSAVEL POR RECEBER A PARTE ESPECIFICA DAS DOENCAS QUE A PLANTA TEM
 class DiseaseSuggestion {
   final String id;
   final String name;
@@ -71,7 +74,7 @@ class DiseaseSuggestion {
     );
   }
 }
-
+//PARTE QUE LIDA COM AS IMAGENS SIMILARES À DOENÇA
 class SimilarImage {
   final String url;
   final double similarity;
