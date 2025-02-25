@@ -5,42 +5,75 @@ class WelcomeScreen extends StatelessWidget { //INÍCIO DAS ESPECIFICAÇÕES DA 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green, //COR DO FUNDO
+      
+      //COR DO FUNDO
       /*appBar: AppBar(
         title: Text('Identificador de Plantas'),
       ),*/
-      body: Center( //CENTRALIZA OS ELEMENTOS
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            //Image.asset("lib/assets/logo.png"),
-            //TEXTO DE BOAS VINDAS
-            Text(
-              'Bem-vindo ao PlantaCheck!',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white //COR DO TEXTO
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("lib/assets/foto-planta-1.jpg"),
+          fit: BoxFit.cover
+        )
+      ),
+        child: Center( //CENTRALIZA OS ELEMENTOS
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              //Image.asset("lib/assets/logo.png"),
+              //TEXTO DE BOAS VINDAS
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Bem-vindo ao ',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white //COR DO TEXTO
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(17)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'PlantaCheck!',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.lightGreenAccent[700] //COR DO TEXTO
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 20),
-            //BOTÃO DE INICIAR
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PhotoScreen()), //AO CLICAR ABRE A TELA DE CAPTURA DE IMAGEM
-                );
-              },
-              child: Text(
-                'Iniciar',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green[700], //COR DO TEXTO
+              SizedBox(height: 20),
+              //BOTÃO DE INICIAR
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PhotoScreen()), //AO CLICAR ABRE A TELA DE CAPTURA DE IMAGEM
+                  );
+                },
+                child: Text(
+                  'Iniciar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green[700], //COR DO TEXTO
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

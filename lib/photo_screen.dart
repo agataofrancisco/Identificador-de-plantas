@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart'; //BIBLIOTECAS DO FLUTTER
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart'; //BLIBLIOTECA DE EXTRAÇÃO DAS IMAGENS
-import 'package:plants_id/localizador.dart';
 import 'dart:io'; //BIBLIOTECA PADRÃO
 import 'package:plants_id/plant_model.dart'; //MODELO DE APRESENTAÇÃO DE APRESENTAÇÃO AS INFORMAÇÕES
 import 'package:plants_id/services.dart'; //REFERENCIA A FUNÇÃO QUE FAZ A REQUISIÇÃO À A PI
@@ -71,7 +70,7 @@ Future<Position> _getPosition() async {
       // Se a API retornar informações da planta, abre a tela de resultado
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ResultsScreen(plant: plant,)),
+        MaterialPageRoute(builder: (context) => ResultsScreen(plant: plant,imageFile:_image!)),
       );
     } else {
       _showError('Erro ao identificar a planta. Tente novamente.');
@@ -85,60 +84,78 @@ Future<Position> _getPosition() async {
 
 
   void _showError(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),backgroundColor: Colors.green,));
   }
 
   @override
   //INÍCIO DAS DEFINIÇÕES DA APRESENTAÇÃO DA TELA
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.green, //COR DO FUNDO
-      appBar: AppBar(title: Text('Capturar ou carregar a Foto', style: TextStyle(color: Colors.white),), backgroundColor: Colors.green,),//COR DA Barra superior
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-           _image != null 
-  ? Padding(
-      padding: const EdgeInsets.all(10),
-      child: ClipRRect( // Garante o arredondamento da imagem
-        borderRadius: BorderRadius.circular(20), // Ajuste do BorderRadius
-        child: Container(
-          height: MediaQuery.of(context).size.width * 0.9, // Quadrado baseado na largura
-          width: MediaQuery.of(context).size.width * 0.9,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), // Borda arredondada
-            color: Colors.grey[300], // Fundo para caso a imagem não preencha tudo
-          ),
-          child: Image.file(
-            _image!,
-            fit: BoxFit.cover, // Garante que a imagem preencha o quadrado sem deformar
+    return Scaffold( //COR DO FUNDO
+      appBar: AppBar(title: Text('Capturar ou carregar a Foto', style: TextStyle(color: Colors.green),),backgroundColor: Colors.black,),//COR DA Barra superior
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image:DecorationImage(
+            image: AssetImage("lib/assets/foto-planta-SCURA.jpg"),
+            fit: BoxFit.cover
+          )
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+             _image != null 
+          ? Padding(
+        padding: const EdgeInsets.all(10),
+        child: ClipRRect( // Garante o arredondamento da imagem
+          borderRadius: BorderRadius.circular(20), // Ajuste do BorderRadius
+          child: Container(
+            height: MediaQuery.of(context).size.width * 0.9, // Quadrado baseado na largura
+            width: MediaQuery.of(context).size.width * 0.9,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20), // Borda arredondada
+              color: Colors.grey[300], // Fundo para caso a imagem não preencha tudo
+            ),
+            child: Image.file(
+              _image!,
+              fit: BoxFit.cover, // Garante que a imagem preencha o quadrado sem deformar
+            ),
           ),
         ),
-      ),
-    ) 
-  
-: Text('Nenhuma imagem selecionada.' ,style:TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),), //A INFORMAÇÃO QUE VAI APARECER NA TELA CASO NÃO FOR SELECIONADA NENHUMA IMAGEM
-            if (_isLoading) Padding(
-              padding: const EdgeInsets.all(20),
-              child: CircularProgressIndicator(color: Colors.white  ,), //ENQUANTO O RESULTADO ESTIVER A CARREGAR.
-            ),
-            ElevatedButton(
-              onPressed: () => _identifyPlant(),
-              child: Text('Analisar',style: TextStyle(color: Colors.green
-              ),), //BOTÃO PARA TIRAR A FOTO!
-            ),
-            ElevatedButton(
-              onPressed: () => _pickImage(ImageSource.camera),
-              child: Text('Tirar Foto',style: TextStyle(color: Colors.green
-              ),), //BOTÃO PARA TIRAR A FOTO!
-            ),
-            ElevatedButton(
-              onPressed: () => _pickImage(ImageSource.gallery),
-              child: Text('Escolher da Galeria',style: TextStyle(color: Colors.green),), //BOTÃO PARA SELECIONAR UMA IMAGEM DA GALERIA
-            ),
-           
-          ],
+            ) 
+          
+        : Text('Nenhuma imagem selecionada.' ,style:TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),), //A INFORMAÇÃO QUE VAI APARECER NA TELA CASO NÃO FOR SELECIONADA NENHUMA IMAGEM
+              if (_isLoading) Padding(
+                padding: const EdgeInsets.all(20),
+                child: CircularProgressIndicator(color: Colors.white  ,), //ENQUANTO O RESULTADO ESTIVER A CARREGAR.
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black
+                ),
+                onPressed: () => _identifyPlant(),
+                child: Text('Analisar',style: TextStyle(color: Colors.green
+                ),), //BOTÃO PARA TIRAR A FOTO!
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black
+                ),
+                onPressed: () => _pickImage(ImageSource.camera),
+                child: Text('Tirar Foto',style: TextStyle(color: Colors.green
+                ),), //BOTÃO PARA TIRAR A FOTO!
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black
+                ),
+                onPressed: () => _pickImage(ImageSource.gallery),
+                child: Text('Escolher da Galeria',style: TextStyle(color: Colors.green),), //BOTÃO PARA SELECIONAR UMA IMAGEM DA GALERIA
+              ),
+             
+            ],
+          ),
         ),
       ),
     );
