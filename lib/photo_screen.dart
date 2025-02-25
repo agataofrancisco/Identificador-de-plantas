@@ -97,7 +97,7 @@ Future<Position> _getPosition() async {
         height: double.infinity,
         decoration: BoxDecoration(
           image:DecorationImage(
-            image: AssetImage("lib/assets/foto-planta-SCURA.jpg"),
+            image: AssetImage("lib/assets/foto-planta-SCURA.png"),
             fit: BoxFit.cover
           )
         ),

@@ -15,7 +15,7 @@ class WelcomeScreen extends StatelessWidget { //INÍCIO DAS ESPECIFICAÇÕES DA 
         height: double.infinity,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("lib/assets/foto-planta-1.jpg"),
+          image: AssetImage("lib/assets/foto-planta-1.png"),
           fit: BoxFit.cover
         )
       ),

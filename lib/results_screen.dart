@@ -226,7 +226,6 @@ import 'package:flutter/material.dart';
 import 'package:plants_id/services.dart';
 import 'plant_model.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'plantchatmodel.dart';
 
 class ResultsScreen extends StatefulWidget {
   final PlantModel plant;
@@ -241,7 +240,6 @@ class ResultsScreen extends StatefulWidget {
 class _ResultsScreenState extends State<ResultsScreen> {
   bool _isLoading = false;
   String _explanation = "";
-  PlantChatResponse? chat;
 
   @override
   void initState() {
@@ -318,7 +316,7 @@ class _ResultsScreenState extends State<ResultsScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("lib/assets/foto-planta-FUNDOBRANCO.jpg"),
+            image: AssetImage("lib/assets/foto-planta-FUNDOBRANCO.png"),
             fit: BoxFit.cover,
           ),
         ),

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:plants_id/plant_model.dart';
-import 'package:plants_id/plantchatmodel.dart';
 import 'package:plants_id/results_screen.dart';
 
 //PARTE RESPONSAVEL POR FAZER A COMUNICAÇÃO COM A API
@@ -44,39 +43,5 @@ class PlantService {
 }
 
 //gemini: AIzaSyBHerOyLIGSDQibe7PHsrm7aIq-K61j0Og
-  static Future<PlantChatResponse> sendMessage(String question) async {
-    const String apiUrl =
-        'https://api-inference.huggingface.co/models/recogna-nlp/Phi-Bode';
-    const String apiKey =
-        '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'; // Substituir pelo seu token da Hugging Face
-
-    final Map<String, dynamic> requestBody = {
-      "inputs": "Você é um assistente especializado em doenças de plantas. O que causa $question em plantas? Responda de forma simples e direta, incluindo medidas de prevenção e correção.",
-  "parameters": {
-    "max_new_tokens": 300,
-    "temperature": 0.7
-    }
-    };
-
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer $apiKey",
-      },
-      body: jsonEncode(requestBody),
-    );
-
-    if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body); // Decodifica a resposta como uma lista
-      if (data.isNotEmpty && data.first is Map<String, dynamic>) {
-        return PlantChatResponse.fromJson(data.first);
-      } else {
-        throw Exception('Resposta inesperada da API: ${response.body}');
-      }
-    } else {
-      throw Exception('Erro ao buscar resposta: ${response.body}');
-    }
-  }
-
+ 
 } 
