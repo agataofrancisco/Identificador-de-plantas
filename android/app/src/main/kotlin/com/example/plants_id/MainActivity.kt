@@ -1,4 +1,4 @@
-package com.example.plants_id
+package com.example.Plantacheck
 
 import io.flutter.embedding.android.FlutterActivity
 

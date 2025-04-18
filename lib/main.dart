@@ -3,10 +3,13 @@ import 'welcome_screen.dart';
 //CÓDIGO PRINCIPAL
 //FUNÇÃO INICIAL QUE O CÓDIGO COMEÇA
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       //CHAMA A TELA INICIAL DE BOAS VINDAS
-      home: WelcomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

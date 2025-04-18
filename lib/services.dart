@@ -1,13 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:plants_id/plant_model.dart';
-import 'package:plants_id/results_screen.dart';
+import 'package:Plantacheck/plant_model.dart';
 
 //PARTE RESPONSAVEL POR FAZER A COMUNICAÇÃO COM A API
 class PlantService {
   static const String apiUrl = 'https://plant.id/api/v3/health_assessment'; //LINK
-  static const String apiKey = '9Ju916rAX5LWYJOdwBQPFqcdw7qJ34RAN2CVi3fI86Dl3h2OUB'; //TOKEN DA API, A CHAVE QUE AUTORIZA A BUSCA DAS INFORMAÇÕES
+  static const String apiKey = 'ZHnzq37XZ9j0WGv4VNN17uFjD3OkpF85jw9M7UPMVQQolf6arL'; //TOKEN DA API, A CHAVE QUE AUTORIZA A BUSCA DAS INFORMAÇÕES
 
   static Future<PlantModel?> identifyPlant(File image, double latitude, double longitude) async {
   try {

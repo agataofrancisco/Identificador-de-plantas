@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'photo_screen.dart';
 //TELA DE BOAS VINDAS
-class WelcomeScreen extends StatelessWidget { //INÍCIO DAS ESPECIFICAÇÕES DA TELA
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+ //INÍCIO DAS ESPECIFICAÇÕES DA TELA
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,7 +15,7 @@ class WelcomeScreen extends StatelessWidget { //INÍCIO DAS ESPECIFICAÇÕES DA 
       body: Container(
         width: double.infinity,
         height: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage("lib/assets/foto-planta-1.png"),
           fit: BoxFit.cover
@@ -28,7 +30,7 @@ class WelcomeScreen extends StatelessWidget { //INÍCIO DAS ESPECIFICAÇÕES DA 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Bem-vindo ao ',
                     style: TextStyle(
                       fontSize: 24,
@@ -55,7 +57,7 @@ class WelcomeScreen extends StatelessWidget { //INÍCIO DAS ESPECIFICAÇÕES DA 
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               //BOTÃO DE INICIAR
               ElevatedButton(
                 onPressed: () {

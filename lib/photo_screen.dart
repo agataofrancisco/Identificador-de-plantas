@@ -3,11 +3,15 @@ import 'package:flutter/material.dart'; //BIBLIOTECAS DO FLUTTER
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart'; //BLIBLIOTECA DE EXTRAÇÃO DAS IMAGENS
 import 'dart:io'; //BIBLIOTECA PADRÃO
-import 'package:plants_id/plant_model.dart'; //MODELO DE APRESENTAÇÃO DE APRESENTAÇÃO AS INFORMAÇÕES
-import 'package:plants_id/services.dart'; //REFERENCIA A FUNÇÃO QUE FAZ A REQUISIÇÃO À A PI
+import 'package:Plantacheck/plant_model.dart'; //MODELO DE APRESENTAÇÃO DE APRESENTAÇÃO AS INFORMAÇÕES
+import 'package:Plantacheck/services.dart'; //REFERENCIA A FUNÇÃO QUE FAZ A REQUISIÇÃO À A PI
 import 'results_screen.dart';
 
 class PhotoScreen extends StatefulWidget {
+
+  final String adUnit = Platform.isAndroid ? 'ca-app-pub-3940256099942544/9214589741' :'8'; 
+
+  PhotoScreen({super.key});
   @override
   _PhotoScreenState createState() => _PhotoScreenState();
 }
@@ -15,6 +19,44 @@ class PhotoScreen extends StatefulWidget {
 class _PhotoScreenState extends State<PhotoScreen> {
   File? _image;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+  //  _loadAd();
+  }
+/*
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  void _loadAd(){
+    final bannerAd = BannerAd(
+      size: widget.adSize,
+      adUnitId: widget.adUnit,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          if(!mounted){
+            ad.dispose();
+            return;
+          }
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+          onAdFailedToLoad: (ad, error){
+            print("Ocorreu uma falha ao carregar: $error");
+            ad.dispose();
+          };
+        },
+      ),
+    );
+     bannerAd.load();
+     
+  }
+*/
 //FUNÇÃO PARA PEGAR A LOCALIZAÇÃO ACTUAL:
 Future<Position> _getPosition() async {
   LocationPermission permission = await Geolocator.checkPermission();
@@ -81,21 +123,19 @@ Future<Position> _getPosition() async {
     setState(() => _isLoading = false);
   }
 }
-
-
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message),backgroundColor: Colors.green,));
   }
-
+  //BannerAd? _bannerAd;
   @override
   //INÍCIO DAS DEFINIÇÕES DA APRESENTAÇÃO DA TELA
   Widget build(BuildContext context) {
     return Scaffold( //COR DO FUNDO
-      appBar: AppBar(title: Text('Capturar ou carregar a Foto', style: TextStyle(color: Colors.green),),backgroundColor: Colors.black,),//COR DA Barra superior
+      appBar: AppBar(title: const Text('Capturar ou carregar a Foto', style: TextStyle(color: Colors.green),),backgroundColor: Colors.black,),//COR DA Barra superior
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image:DecorationImage(
             image: AssetImage("lib/assets/foto-planta-SCURA.png"),
             fit: BoxFit.cover
@@ -105,6 +145,13 @@ Future<Position> _getPosition() async {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              /*SafeArea(
+                child: SizedBox(
+                  width: widget.adSize.width.toDouble(),
+                  height: widget.adSize.hashCode.toDouble(),
+                  child: _bannerAd == null ? const SizedBox() : AdWidget(ad: _bannerAd!),
+                )
+              ),*/
              _image != null 
           ? Padding(
         padding: const EdgeInsets.all(10),
@@ -123,11 +170,9 @@ Future<Position> _getPosition() async {
             ),
           ),
         ),
-            ) 
-          
-        : Text('Nenhuma imagem selecionada.' ,style:TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),), //A INFORMAÇÃO QUE VAI APARECER NA TELA CASO NÃO FOR SELECIONADA NENHUMA IMAGEM
-              if (_isLoading) Padding(
-                padding: const EdgeInsets.all(20),
+      ) : const Text('Nenhuma imagem selecionada.' ,style:TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),), //A INFORMAÇÃO QUE VAI APARECER NA TELA CASO NÃO FOR SELECIONADA NENHUMA IMAGEM
+              if (_isLoading) const Padding(
+                padding: EdgeInsets.all(20),
                 child: CircularProgressIndicator(color: Colors.white  ,), //ENQUANTO O RESULTADO ESTIVER A CARREGAR.
               ),
               ElevatedButton(
@@ -135,7 +180,7 @@ Future<Position> _getPosition() async {
                   backgroundColor: Colors.black
                 ),
                 onPressed: () => _identifyPlant(),
-                child: Text('Analisar',style: TextStyle(color: Colors.green
+                child: const Text('Analisar',style: TextStyle(color: Colors.green
                 ),), //BOTÃO PARA TIRAR A FOTO!
               ),
               ElevatedButton(
@@ -143,7 +188,7 @@ Future<Position> _getPosition() async {
                   backgroundColor: Colors.black
                 ),
                 onPressed: () => _pickImage(ImageSource.camera),
-                child: Text('Tirar Foto',style: TextStyle(color: Colors.green
+                child: const Text('Tirar Foto',style: TextStyle(color: Colors.green
                 ),), //BOTÃO PARA TIRAR A FOTO!
               ),
               ElevatedButton(
@@ -151,9 +196,8 @@ Future<Position> _getPosition() async {
                   backgroundColor: Colors.black
                 ),
                 onPressed: () => _pickImage(ImageSource.gallery),
-                child: Text('Escolher da Galeria',style: TextStyle(color: Colors.green),), //BOTÃO PARA SELECIONAR UMA IMAGEM DA GALERIA
+                child: const Text('Escolher da Galeria',style: TextStyle(color: Colors.green),), //BOTÃO PARA SELECIONAR UMA IMAGEM DA GALERIA
               ),
-             
             ],
           ),
         ),
